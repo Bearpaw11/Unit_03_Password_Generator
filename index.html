@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Password Generator</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //Promt to start program and for Users to give critera for password//
+        function generateRandomPassword() {
+        alert("This is a program that will randomly generate a password between 8 and 128 characters long. Press Ok to set criteria of password")
+
+        let pwlength 
+        // get pwlength func. Function to get input of password length from user and to make sure password is between 8-128 characters.//
+        function getpasswordlength() {
+             pwlength = parseInt(prompt(
+                "How many characters would you like you password to contain? (Enter number between 8-128 and press OK)"
+            ))
+        }
+        getpasswordlength();
+        if (isNaN(pwlength) === true || (pwlength < 8) || (pwlength > 128)) {
+            alert("Your password length must be a number between 8 and 128");
+            return generateRandomPassword();
+        }
+            ///// make this a func
+
+            const questions = [
+                { q: "Do you want you pasword to contain numbers? Press OK for Yes and Cancel for No", a: false },
+                { q: "Do you want your password to contain special chatacters? Press OK for Yes and Cancel for No", a: false },
+                { q: "Do you want your password to contain upper case letters? Press OK for Yes and Cancel for No", a: false },
+                { q: "Do you want your password to contain upper case letters? Press OK for Yes and Cancel for No", a: false }];
+
+            //ask the user the questions to determine the types of characters they want in their password//
+            let pwoption = []
+            function question() {
+            for (var i = 0; i < questions.length; i++) {
+                var answer = confirm(questions[i].q);
+                console.log(answer)
+                questions[i].a = answer
+            }
+            console.log(questions)
+
+
+
+            // differet arrays for differnet questions//
+
+            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            const special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "?", "=", "<", ">", ":", ";", "_"];
+            const uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            const lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+            //Confirm user selected at least onne of the criteria. If not ask criteria questions again until user selects one ofthe criteria//
+                
+                if (questions[0].a === true) {
+                    pwoption = pwoption.concat(numbers)
+                }
+                if (questions[1].a === true) {
+                    pwoption = pwoption.concat(special)
+                }
+                if (questions[2].a === true) {
+                    pwoption = pwoption.concat(uppercase)
+                }
+                if (questions[3].a === true) {
+                    pwoption = pwoption.concat(lowercase)
+                }
+                console.log("pw", pwoption.length)
+                if (!pwoption.length) {
+                    alert("Your Password must contain one of the numbers, special characters, uppercase or lowercase options")
+                    return question();
+                }
+            }
+                question()
+            // Create Var password. This is where password will be stored//
+            var password = ""
+
+            //create a loop that will run the number of times that the user selected for length of password. Eachtime this is run a random index from pwoption will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
+            for (var i = 0; i < pwlength; i++) {
+                var randomValue = pwoption[Math.floor(Math.random() * pwoption.length)]
+                console.log("random", randomValue)
+                password = password + randomValue
+            }
+            //alert user of randon passwor//
+            alert("Your random password is " + password)
+        }
+
+        generateRandomPassword()
+    </script>
+</body>
+
+</html>
