@@ -9,63 +9,75 @@
 </head>
 
 <body>
+    <header>
+        <h1>Password Generator</h1>
+    </header>
+    <h2>Generate a Password</h2>
+    <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
+    <button onclick="generateRandomPassword()">Click to generate Password</button>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
     <script type="text/javascript">
+            var password = ""
         //Promt to start program and for Users to give critera for password//
         function generateRandomPassword() {
-        alert("This is a program that will randomly generate a password between 8 and 128 characters long. Press Ok to set criteria of password")
+            alert("This is a program that will randomly generate a password between 8 and 128 characters long. Press Ok to set criteria for your password")
 
-        let pwlength 
-        // get pwlength func. Function to get input of password length from user and to make sure password is between 8-128 characters.//
-        function getpasswordlength() {
-             pwlength = parseInt(prompt(
-                "How many characters would you like you password to contain? (Enter number between 8-128 and press OK)"
-            ))
-        }
-        getpasswordlength();
-        if (isNaN(pwlength) === true || (pwlength < 8) || (pwlength > 128)) {
-            alert("Your password length must be a number between 8 and 128");
-            return generateRandomPassword();
-        }
-            ///// make this a func
+            let pwlength
+            // get pwlength func. Function to get input of password length from user and to make sure password is between 8-128 characters.//
+            function getpasswordlength() {
+                pwlength = parseInt(prompt(
+                    "How many characters would you like your password to contain? (Enter number between 8-128 and press OK)"
+                ))
+            }
+            getpasswordlength();
+            if (isNaN(pwlength) === true || (pwlength < 8) || (pwlength > 128)) {
+                alert("Your password length must be a number between 8 and 128");
+                return generateRandomPassword();
+            }
+        
 
             const questions = [
-                { q: "Do you want you pasword to contain numbers? Press OK for Yes and Cancel for No", a: false },
+                { q: "Do you want your pasword to contain numbers? Press OK for Yes and Cancel for No", a: false },
                 { q: "Do you want your password to contain special chatacters? Press OK for Yes and Cancel for No", a: false },
                 { q: "Do you want your password to contain upper case letters? Press OK for Yes and Cancel for No", a: false },
-                { q: "Do you want your password to contain upper case letters? Press OK for Yes and Cancel for No", a: false }];
+                { q: "Do you want your password to contain lower case letters? Press OK for Yes and Cancel for No", a: false }];
 
             //ask the user the questions to determine the types of characters they want in their password//
             let pwoption = []
             function question() {
-            for (var i = 0; i < questions.length; i++) {
-                var answer = confirm(questions[i].q);
-                console.log(answer)
-                questions[i].a = answer
-            }
-            console.log(questions)
+                for (var i = 0; i < questions.length; i++) {
+                    var answer = confirm(questions[i].q);
+                    console.log(answer)
+                    questions[i].a = answer
+                }
+                console.log(questions)
 
 
 
-            // differet arrays for differnet questions//
+                // differet arrays for differnet questions//
 
-            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-            const special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "?", "=", "<", ">", ":", ";", "_"];
-            const uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-            const lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+                const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                const special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "?", "=", "<", ">", ":", ";", "_"];
+                const uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+                const lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-            //Confirm user selected at least onne of the criteria. If not ask criteria questions again until user selects one ofthe criteria//
-                
+                //Confirm user selected at least onne of the criteria. If not ask criteria questions again until user selects one ofthe criteria//
+                password = ""
                 if (questions[0].a === true) {
-                    pwoption = pwoption.concat(numbers)
+                    pwoption = pwoption.concat(numbers) 
+               addRandom(numbers)
                 }
                 if (questions[1].a === true) {
-                    pwoption = pwoption.concat(special)
+                    pwoption = pwoption.concat(special)   
+                 addRandom(special)
                 }
                 if (questions[2].a === true) {
-                    pwoption = pwoption.concat(uppercase)
+                    pwoption = pwoption.concat(uppercase)    
+                 addRandom(uppercase)
                 }
                 if (questions[3].a === true) {
-                    pwoption = pwoption.concat(lowercase)
+                    pwoption = pwoption.concat(lowercase)    
+                 addRandom(lowercase)
                 }
                 console.log("pw", pwoption.length)
                 if (!pwoption.length) {
@@ -73,21 +85,35 @@
                     return question();
                 }
             }
-                question()
-            // Create Var password. This is where password will be stored//
-            var password = ""
 
-            //create a loop that will run the number of times that the user selected for length of password. Eachtime this is run a random index from pwoption will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
-            for (var i = 0; i < pwlength; i++) {
-                var randomValue = pwoption[Math.floor(Math.random() * pwoption.length)]
+            function addRandom(array){
+                var randomValue = array[Math.floor(Math.random() * array.length)]
                 console.log("random", randomValue)
                 password = password + randomValue
             }
-            //alert user of randon passwor//
-            alert("Your random password is " + password)
-        }
 
-        generateRandomPassword()
+            question()
+            // Create Var password. This is where password will be stored//
+            console.log(password)
+
+            //create a loop that will run the number of times that the user selected for length of password. Eachtime this is run a random index from pwoption will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
+            for (var i = password.length; i < pwlength; i++) {
+                addRandom (pwoption)
+            }
+                //  select the id and give a value to the id (password)
+            document.getElementById("password").value = password   
+        }
+        function copyToClipboard(){
+                console.log("copy clicked")
+            
+                var newPass = document.getElementById("password")
+                newPass.select()
+                console.log(newPass.value)
+                document.execCommand("copy")
+                alert ("Your Password has been copied to your clipboard")
+                
+
+            }
     </script>
 </body>
 
