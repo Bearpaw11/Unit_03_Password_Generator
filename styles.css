@@ -1,0 +1,77 @@
+h1 {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 45px;
+    font-family: 'Tomorrow', sans-serif;
+}
+
+h2 {
+    margin-top: -25px;
+    margin-left: 5px;
+    font-family: 'Tomorrow', sans-serif;
+    color: grey;
+
+}
+.pwbox{
+    padding-top: 15px;
+    border-top: solid;
+    border-bottom: solid;
+    border-color: grey;
+    padding-bottom: 15px;
+
+}
+#password {
+    padding-top: 100px;
+    padding-right:5px;
+    padding-left: 5px;
+    text-align: center;
+    border: dashed;
+    border-color: grey;
+    height: 250px;
+    font-family: 'Tomorrow', sans-serif;
+    font-size: 25px;
+    width: 100%
+
+}
+
+.button {
+    text-align: center;
+}
+
+#generate {
+   width: 275px;
+   height:40px;
+   border-radius: 12px;
+   background: red;
+   color: white;
+   font-size: 18px;
+   font-weight: bold;
+   margin-right: 20px;
+   margin-right: 20px;
+
+}
+
+#copy{
+    width: 275px;
+    height:40px;
+    border-radius: 12px;
+    background: grey;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-right: 20px;
+ }
+
+ @media (max-width: 600px) {
+
+    #password {
+        padding-top: 75px;
+        height: 200px;
+        font-size: 15px;
+
+    }
+
+ }

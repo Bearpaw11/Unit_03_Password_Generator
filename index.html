@@ -6,18 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Password Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Tomorrow&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Password Generator</h1>
+        <h1>Random Password Generator</h1>
     </header>
-    <h2>Generate a Password</h2>
-    <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
-    <button onclick="generateRandomPassword()">Click to generate Password</button>
-    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    <div class="jumbotron">
+        <h2>Generate a Password</h2>
+        <div class="pwbox">
+            <textarea readonly id="password" placeholder="Your Secure Password"
+                aria-label="Generated Password"></textarea>
+        </div>
+        <br>
+        <br>
+        <div class="button">
+            <button id="generate" onclick="generateRandomPassword()">Click to generate Password</button>
+            <button id="copy" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    </div>
+
     <script type="text/javascript">
-            var password = ""
+        var password = ""
         //Promt to start program and for Users to give critera for password//
         function generateRandomPassword() {
             alert("This is a program that will randomly generate a password between 8 and 128 characters long. Press Ok to set criteria for your password")
@@ -26,7 +40,7 @@
             // get pwlength func. Function to get input of password length from user and to make sure password is between 8-128 characters.//
             function getpasswordlength() {
                 pwlength = parseInt(prompt(
-                    "How many characters would you like your password to contain? (Enter number between 8-128 and press OK)"
+                    "How many characters would you like your password to contain? (Enter a number between 8-128 and press OK)"
                 ))
             }
             getpasswordlength();
@@ -34,7 +48,7 @@
                 alert("Your password length must be a number between 8 and 128");
                 return generateRandomPassword();
             }
-        
+
 
             const questions = [
                 { q: "Do you want your pasword to contain numbers? Press OK for Yes and Cancel for No", a: false },
@@ -64,20 +78,20 @@
                 //Confirm user selected at least onne of the criteria. If not ask criteria questions again until user selects one ofthe criteria//
                 password = ""
                 if (questions[0].a === true) {
-                    pwoption = pwoption.concat(numbers) 
-               addRandom(numbers)
+                    pwoption = pwoption.concat(numbers)
+                    addRandom(numbers)
                 }
                 if (questions[1].a === true) {
-                    pwoption = pwoption.concat(special)   
-                 addRandom(special)
+                    pwoption = pwoption.concat(special)
+                    addRandom(special)
                 }
                 if (questions[2].a === true) {
-                    pwoption = pwoption.concat(uppercase)    
-                 addRandom(uppercase)
+                    pwoption = pwoption.concat(uppercase)
+                    addRandom(uppercase)
                 }
                 if (questions[3].a === true) {
-                    pwoption = pwoption.concat(lowercase)    
-                 addRandom(lowercase)
+                    pwoption = pwoption.concat(lowercase)
+                    addRandom(lowercase)
                 }
                 console.log("pw", pwoption.length)
                 if (!pwoption.length) {
@@ -86,7 +100,7 @@
                 }
             }
 
-            function addRandom(array){
+            function addRandom(array) {
                 var randomValue = array[Math.floor(Math.random() * array.length)]
                 console.log("random", randomValue)
                 password = password + randomValue
@@ -98,22 +112,22 @@
 
             //create a loop that will run the number of times that the user selected for length of password. Eachtime this is run a random index from pwoption will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
             for (var i = password.length; i < pwlength; i++) {
-                addRandom (pwoption)
+                addRandom(pwoption)
             }
-                //  select the id and give a value to the id (password)
-            document.getElementById("password").value = password   
+            //  select the id and give a value to the id (password)
+            document.getElementById("password").value = password
         }
-        function copyToClipboard(){
-                console.log("copy clicked")
-            
-                var newPass = document.getElementById("password")
-                newPass.select()
-                console.log(newPass.value)
-                document.execCommand("copy")
-                alert ("Your Password has been copied to your clipboard")
-                
+        function copyToClipboard() {
+            console.log("copy clicked")
 
-            }
+            var newPass = document.getElementById("password")
+            newPass.select()
+            console.log(newPass.value)
+            document.execCommand("copy")
+            alert("Your Password has been copied to your clipboard")
+
+
+        }
     </script>
 </body>
 
