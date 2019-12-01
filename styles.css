@@ -48,7 +48,7 @@ h2 {
    color: white;
    font-size: 18px;
    font-weight: bold;
-   margin-right: 20px;
+   margin-left: 20px;
    margin-right: 20px;
 
 }
@@ -61,7 +61,7 @@ h2 {
     color: white;
     font-size: 18px;
     font-weight: bold;
-    margin-right: 20px;
+    margin-left: 20px;
     margin-right: 20px;
  }
 
@@ -73,5 +73,7 @@ h2 {
         font-size: 15px;
 
     }
-
+    #generate {
+        margin-bottom: 15px;
+    }
  }
