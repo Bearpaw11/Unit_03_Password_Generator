@@ -25,18 +25,23 @@
         <br>
         <br>
         <div class="button">
+            <!--Calling fuction generateRandomPassword when button is clicked-->
             <button id="generate" onclick="generateRandomPassword()">Click to generate Password</button>
+            <!--Calling fuction copyToClipboard when button is clicked-->
             <button id="copy" onclick="copyToClipboard()">Copy to Clipboard</button>
         </div>
     </div>
 
     <script type="text/javascript">
+        //set var for password//
         var password = ""
         //Promt to start program and for Users to give critera for password//
         function generateRandomPassword() {
             alert("This is a program that will randomly generate a password between 8 and 128 characters long. Press Ok to set criteria for your password")
 
+            //set var dor the length of passwor//
             let pwlength
+
             // get pwlength func. Function to get input of password length from user and to make sure password is between 8-128 characters.//
             function getpasswordlength() {
                 pwlength = parseInt(prompt(
@@ -49,6 +54,7 @@
                 return generateRandomPassword();
             }
 
+            //array with questions to be asked and answers. Answers are set at false but will be changed to true if user answers true// 
 
             const questions = [
                 { q: "Do you want your pasword to contain numbers? Press OK for Yes and Cancel for No", a: false },
@@ -56,8 +62,9 @@
                 { q: "Do you want your password to contain upper case letters? Press OK for Yes and Cancel for No", a: false },
                 { q: "Do you want your password to contain lower case letters? Press OK for Yes and Cancel for No", a: false }];
 
-            //ask the user the questions to determine the types of characters they want in their password//
+            //Create an empty array that user choices will be put into//
             let pwoption = []
+            //function to ask the user the questions to determine the types of characters they want in their password//
             function question() {
                 for (var i = 0; i < questions.length; i++) {
                     var answer = confirm(questions[i].q);
@@ -66,17 +73,15 @@
                 }
                 console.log(questions)
 
-
-
                 // differet arrays for differnet questions//
 
                 const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
                 const special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "?", "=", "<", ">", ":", ";", "_"];
                 const uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
                 const lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-                //Confirm user selected at least onne of the criteria. If not ask criteria questions again until user selects one ofthe criteria//
                 password = ""
+                //Confirm user selected at least one of the criteria. If not ask criteria questions again until user selects one ofthe criteria. If confirmed they want that character one of those characters will be put in password to ensure one of those characters are in password. This is done by calling addRandom function//
+                
                 if (questions[0].a === true) {
                     pwoption = pwoption.concat(numbers)
                     addRandom(numbers)
@@ -100,33 +105,33 @@
                 }
             }
 
+            //Function to add a randon value from an array to password//
             function addRandom(array) {
                 var randomValue = array[Math.floor(Math.random() * array.length)]
                 console.log("random", randomValue)
                 password = password + randomValue
             }
 
+            //call question fuction//
             question()
-            // Create Var password. This is where password will be stored//
+            
             console.log(password)
 
-            //create a loop that will run the number of times that the user selected for length of password. Eachtime this is run a random index from pwoption will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
+            //creates a loop that will run the number of times that the user selected for length of password minus the number of characters that have already been put in password. Eachtime this is run a random index from pwoption array will be selected and this will be associated with the character associated with that index. This will then be stored as a character of the password.//
             for (var i = password.length; i < pwlength; i++) {
                 addRandom(pwoption)
             }
-            //  select the id and give a value to the id (password)
+            //  select the password id from HTML and give it the value of password from Javascript to display password in textarea box//
             document.getElementById("password").value = password
         }
-        function copyToClipboard() {
-            console.log("copy clicked")
 
+        //function to copy to clipboard and to alert that password has been copied to clipboard//
+        function copyToClipboard() {
             var newPass = document.getElementById("password")
             newPass.select()
             console.log(newPass.value)
             document.execCommand("copy")
             alert("Your Password has been copied to your clipboard")
-
-
         }
     </script>
 </body>
